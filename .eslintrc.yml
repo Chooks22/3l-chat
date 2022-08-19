@@ -1,0 +1,22 @@
+---
+root: true
+extends:
+  - "@chookslint/eslint-config/strict"
+env:
+  browser: true
+  node: true
+overrides:
+  - files: "*.{ts,svelte}"
+    extends:
+      - "@chookslint/eslint-config-typescript/strict"
+      - "@chookslint/eslint-config-typescript/types"
+    parserOptions:
+      project: "./tsconfig.json"
+  - files: "*.svelte"
+    plugins:
+      - svelte3
+    processor: "svelte3/svelte3"
+    settings:
+      "svelte3/typescript": true
+parserOptions:
+  sourceType: module
