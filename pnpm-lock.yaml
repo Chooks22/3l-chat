@@ -2,6 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@chookslint/eslint-config-typescript': ^2.2.1
+  '@fontsource/material-icons': ^4.5.4
+  '@fontsource/material-icons-outlined': ^4.5.4
   '@sveltejs/adapter-auto': next
   '@sveltejs/kit': next
   '@typescript-eslint/eslint-plugin': ^5.27.0
@@ -20,6 +22,8 @@ specifiers:
   vite: ^3.0.8
 
 dependencies:
+  '@fontsource/material-icons': 4.5.4
+  '@fontsource/material-icons-outlined': 4.5.4
   autoprefixer: 10.4.8_postcss@8.4.16
   masterchat: 1.1.0
   postcss: 8.4.16
@@ -94,6 +98,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fontsource/material-icons-outlined/4.5.4:
+    resolution: {integrity: sha512-2SLQe/pAlOzoE2Kd5cBxqTgI9U63hf3a7RrCF8GFvgPkYhF6WOcIzFzsLc1Fdf+UhcYS+Hgpp6o8peguwZGK9Q==}
+    dev: false
+
+  /@fontsource/material-icons/4.5.4:
+    resolution: {integrity: sha512-YGmXkkEdu6EIgpFKNmB/nIXzZocwSmbI01Ninpmml8x8BT0M6RR++V1KqOfpzZ6Cw/FQ2/KYonQ3x4IY/4VRRA==}
+    dev: false
 
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}
