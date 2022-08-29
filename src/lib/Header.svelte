@@ -1,3 +1,4 @@
-<header class="h-16 w-screen flex bg-slate-800 items-center p-4">
-  <button class="font-icon text-2xl">menu</button>
+<header class="flex items-center w-screen h-16 p-4 bg-neutral-800">
+  <!-- @todo: sidebar -->
+  <button class="text-2xl font-icon">menu</button>
 </header>

@@ -1,0 +1,78 @@
+diff --git a/dist/src/parser/classes/livechat/items/LiveChatTextMessage.js b/dist/src/parser/classes/livechat/items/LiveChatTextMessage.js
+index ea9bd1e243ccae98a7fd809364b34772dab84ddb..ddbc194d4adf791dfb4000ea21cbd68b5ed2382f 100644
+--- a/dist/src/parser/classes/livechat/items/LiveChatTextMessage.js
++++ b/dist/src/parser/classes/livechat/items/LiveChatTextMessage.js
+@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
+ const Text_1 = __importDefault(require("../../misc/Text"));
+ const Thumbnail_1 = __importDefault(require("../../misc/Thumbnail"));
+ const NavigationEndpoint_1 = __importDefault(require("../../NavigationEndpoint"));
+-const MetadataBadge_1 = __importDefault(require("../../MetadataBadge"));
++const LiveChatAuthorBadge_1 = __importDefault(require("../../LiveChatAuthorBadge"));
+ const index_1 = __importDefault(require("../../../index"));
+ const helpers_1 = require("../../../helpers");
+ class LiveChatTextMessage extends helpers_1.YTNode {
+@@ -22,7 +22,7 @@ class LiveChatTextMessage extends helpers_1.YTNode {
+             is_verified: null,
+             is_verified_artist: null
+         };
+-        const badges = index_1.default.parseArray(data.authorBadges, MetadataBadge_1.default);
++        const badges = index_1.default.parseArray(data.authorBadges, LiveChatAuthorBadge_1.default);
+         this.author.badges = badges;
+         this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == 'MODERATOR') : null;
+         this.author.is_verified = badges ? badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED') : null;
+diff --git a/dist/src/parser/youtube/LiveChat.js b/dist/src/parser/youtube/LiveChat.js
+index 57aa31c6cad5b7afecc74e02ad7afa9fd89b7fa2..ae9374068e7baddb93e3fca728a15a1fb1e9bf3e 100644
+--- a/dist/src/parser/youtube/LiveChat.js
++++ b/dist/src/parser/youtube/LiveChat.js
+@@ -65,8 +65,8 @@ class LiveChat extends EventEmitterLike_1.default {
+         _LiveChat_video_info.set(this, void 0);
+         _LiveChat_continuation.set(this, void 0);
+         _LiveChat_mcontinuation.set(this, void 0);
+-        _LiveChat_lc_polling_interval_ms.set(this, 1000);
+-        _LiveChat_md_polling_interval_ms.set(this, 5000);
++        _LiveChat_lc_polling_interval_ms.set(this, 250);
++        _LiveChat_md_polling_interval_ms.set(this, 1250);
+         this.running = false;
+         this.is_replay = false;
+         __classPrivateFieldSet(this, _LiveChat_video_info, video_info, "f");
+@@ -110,7 +110,7 @@ _LiveChat_actions = new WeakMap(), _LiveChat_video_info = new WeakMap(), _LiveCh
+             if (!(contents instanceof index_1.LiveChatContinuation))
+                 throw new Utils_1.InnertubeError('Continuation is not a LiveChatContinuation');
+             __classPrivateFieldSet(this, _LiveChat_continuation, contents.continuation.token, "f");
+-            __classPrivateFieldSet(this, _LiveChat_lc_polling_interval_ms, contents.continuation.timeout_ms, "f");
++            __classPrivateFieldSet(this, _LiveChat_lc_polling_interval_ms, contents.continuation.timeout_ms / 4, "f");
+             // Header only exists in the first request
+             if (contents.header) {
+                 this.initial_info = contents;
+@@ -125,12 +125,16 @@ _LiveChat_actions = new WeakMap(), _LiveChat_video_info = new WeakMap(), _LiveCh
+     }, __classPrivateFieldGet(this, _LiveChat_lc_polling_interval_ms, "f"));
+ }, _LiveChat_emitSmoothedActions = function _LiveChat_emitSmoothedActions(actions) {
+     return __awaiter(this, void 0, void 0, function* () {
+-        const base = 1E4;
+-        let delay = actions.length < base / 80 ? 1 : 0;
+-        const emit_delay_ms = delay == 1 ? (delay = base / actions.length,
+-            delay *= Math.random() + 0.5,
+-            delay = Math.min(1E3, delay),
+-            delay = Math.max(80, delay)) : delay = 80;
++        const base = __classPrivateFieldGet(this, _LiveChat_lc_polling_interval_ms, "f");
++        let emit_delay_ms;
++        if (actions.length < base / 20) {
++            let delay = base / actions.length
++            delay *= Math.random() + 0.5
++            delay = Math.min(base / 10, delay)
++            emit_delay_ms = Math.max(20, delay)
++        } else {
++            emit_delay_ms = 20
++        }
+         for (const action of actions) {
+             yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, emit_delay_ms);
+             this.emit('chat-update', action);
+@@ -150,7 +154,7 @@ _LiveChat_actions = new WeakMap(), _LiveChat_video_info = new WeakMap(), _LiveCh
+             const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").livechat('updated_metadata', payload);
+             const data = index_1.default.parseResponse(response.data);
+             __classPrivateFieldSet(this, _LiveChat_mcontinuation, (_a = data.continuation) === null || _a === void 0 ? void 0 : _a.token, "f");
+-            __classPrivateFieldSet(this, _LiveChat_md_polling_interval_ms, ((_b = data.continuation) === null || _b === void 0 ? void 0 : _b.timeout_ms) || __classPrivateFieldGet(this, _LiveChat_md_polling_interval_ms, "f"), "f");
++            __classPrivateFieldSet(this, _LiveChat_md_polling_interval_ms, ((_b = data.continuation) === null || _b === void 0 ? void 0 : _b.timeout_ms / 4) || __classPrivateFieldGet(this, _LiveChat_md_polling_interval_ms, "f"), "f");
+             this.metadata = {
+                 title: ((_c = data.actions) === null || _c === void 0 ? void 0 : _c.array().firstOfType(UpdateTitleAction_1.default)) || ((_d = this.metadata) === null || _d === void 0 ? void 0 : _d.title),
+                 description: ((_e = data.actions) === null || _e === void 0 ? void 0 : _e.array().firstOfType(UpdateDescriptionAction_1.default)) || ((_f = this.metadata) === null || _f === void 0 ? void 0 : _f.description),

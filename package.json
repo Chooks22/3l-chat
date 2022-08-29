@@ -17,7 +17,8 @@
 		"autoprefixer": "^10.4.8",
 		"masterchat": "^1.1.0",
 		"postcss": "^8.4.16",
-		"tailwindcss": "^3.1.8"
+		"tailwindcss": "^3.1.8",
+		"youtubei.js": "github:LuanRT/YouTube.js#317bca261c2974a6fb5996212c8685ef62d25ce7"
 	},
 	"devDependencies": {
 		"@chookslint/eslint-config-typescript": "^2.2.1",
@@ -33,5 +34,10 @@
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
 		"vite": "^3.0.8"
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"youtubei.js@2.0.0": "patches/youtubei.js@2.0.0.patch"
+		}
 	}
 }
