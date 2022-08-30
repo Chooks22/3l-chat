@@ -139,10 +139,12 @@
   {#each messages as node}
     <li class="align-middle">
       <span class="author">
-        {#each node.author.badges as badge}
-          {@const thumbnail = badge.custom_thumbnail[0]}
-          <img class="inline" src={thumbnail.url} alt={badge.tooltip} />
-        {/each}
+        {#if node.author.badges.length > 0}
+          {#each node.author.badges as badge}
+            {@const thumbnail = badge.custom_thumbnail[0]}
+            <img class="inline" src={thumbnail.url} alt={badge.tooltip} />
+          {/each}
+        {/if}
         <span class="font-semibold text-green-600">
           {node.author.name.text}
         </span>
