@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  youtubei.js@2.2.3:
+    hash: xq5jtrktj4wbwxm3ycjrl43jdm
+    path: patches/youtubei.js@2.2.3.patch
+
 specifiers:
   '@chookslint/eslint-config-typescript': ^2.2.1
   '@fontsource/material-icons': ^4.5.4
@@ -33,7 +38,7 @@ dependencies:
   svelte-portal: 2.2.0
   swiper: 8.4.2
   tailwindcss: 3.1.8_postcss@8.4.16
-  youtubei.js: 2.2.3
+  youtubei.js: 2.2.3_xq5jtrktj4wbwxm3ycjrl43jdm
 
 devDependencies:
   '@chookslint/eslint-config-typescript': 2.2.1_bnys6gnq62rj34kdof32ji537y
@@ -2568,7 +2573,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /youtubei.js/2.2.3:
+  /youtubei.js/2.2.3_xq5jtrktj4wbwxm3ycjrl43jdm:
     resolution: {integrity: sha512-szS9wsMyeSZ/MyFp4fAbCtPmfFWz+O/vDeqGC9V/C0bo7/tvRCLEyZfRL4OkGD95O2TG0lGo8Z83Nkcn3XbgzQ==}
     dependencies:
       '@protobuf-ts/runtime': 2.8.1
@@ -2576,3 +2581,4 @@ packages:
       linkedom: 0.14.16
       undici: 5.10.0
     dev: false
+    patched: true
