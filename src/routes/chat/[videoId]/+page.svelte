@@ -1,86 +1,33 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { getContext, onDestroy, onMount, tick } from "svelte";
-  import type { Readable } from "svelte/store";
+  import { getContext, onMount, setContext } from "svelte";
+  import { writable, type Readable } from "svelte/store";
+  import { HashNavigation } from "swiper";
+  import "swiper/css";
+  import { Swiper } from "swiper/svelte";
+
   import type { Innertube } from "youtubei.js";
+  import type ChatAction from "youtubei.js/dist/src/parser/classes/LiveChat";
+  import AddChatItemAction from "youtubei.js/dist/src/parser/classes/livechat/AddChatItemAction";
+  import type LiveChatPaidMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatPaidMessage";
+  import type LiveChatTextMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatTextMessage";
   import LiveChat from "youtubei.js/dist/src/parser/youtube/LiveChat";
+
+  import BottomBar from "./BottomBar.svelte";
+  import MembersChat from "./MembersChat.svelte";
+  import NormalChat from "./NormalChat.svelte";
+  import SuperChat from "./SuperChat.svelte";
 
   const { videoId } = $page.params;
 
-  interface Thumbnail {
-    url: string;
-    width: number;
-    height: number;
-  }
-
-  interface Badge {
-    type: "LiveChatAuthorBadge";
-    tooltip: string;
-    custom_thumbnail: Image[];
-  }
-
-  interface LiveChatAuthorName {
-    text: string;
-  }
-
-  interface LiveChatAuthor {
-    badges: Badge[];
-    id: string;
-    is_moderator: boolean;
-    is_verified: boolean;
-    is_verified_artist: boolean;
-    name: LiveChatAuthorName;
-    thumbnails: Thumbnail[];
-  }
-
-  interface Image {
-    url: string;
-    width: number;
-    height: number;
-  }
-
-  interface TextRun {
-    text: string;
-  }
-
-  interface EmojiRunData {
-    emoji_id: string;
-    shortcuts: string[];
-    search_terms: string[];
-    image: Image[];
-  }
-
-  interface EmojiRun extends TextRun {
-    emoji: EmojiRunData;
-  }
-
-  interface LiveChatMessage {
-    runs: (TextRun | EmojiRun)[];
-    text: string;
-    timestamp: number;
-  }
-
-  interface LiveChatTextMessage {
-    id: string;
-    type: "LiveChatTextMessage";
-    author: LiveChatAuthor;
-    message: LiveChatMessage;
-    timestamp: number;
-  }
-
+  let idx = 0;
   const it = getContext<Readable<Innertube>>("yt");
-  let messages: LiveChatTextMessage[] = [];
-
-  interface AddChatItemAction {
-    type: "AddChatItemAction";
-    item: LiveChatTextMessage;
-  }
 
   let livechat: LiveChat;
-  let list: HTMLUListElement;
 
-  // @fixme: reactive scroll
-  let inBottom = true;
+  type Message = LiveChatTextMessage | LiveChatPaidMessage;
+  let messages = writable<Message[]>([]);
+  setContext("messages", messages);
 
   async function start() {
     console.info("getting video");
@@ -88,92 +35,37 @@
     livechat = new LiveChat(info);
 
     livechat.on("start", () => console.info("livechat started"));
-    livechat.on("chat-update", (action: AddChatItemAction) => {
-      if (action.type !== "AddChatItemAction") {
-        console.debug("unknown action", action);
-        return;
+    livechat.on("chat-update", (action: ChatAction) => {
+      if (action.is(AddChatItemAction) && action.item !== null) {
+        console.debug(action.item);
+        $messages.push(action.item as Message);
+        $messages = $messages;
       }
-
-      // @todo: super chats
-      if (action.item.type !== "LiveChatTextMessage") {
-        console.debug("unknown item", action.item);
-        return;
-      }
-
-      const item = action.item;
-      messages.push(item);
-      messages = inBottom ? messages.slice(-250) : messages;
     });
 
     livechat.start();
   }
 
-  onMount(start);
-  onDestroy(() => livechat?.stop());
-
-  $: if (messages.length > 0) {
-    inBottom = list.clientHeight + list.scrollTop === list.scrollHeight;
-    if (inBottom) scrollToBottom();
-  }
-
-  async function scrollToBottom() {
-    await tick();
-    (list.lastChild as HTMLLIElement).scrollIntoView();
-    inBottom = true;
-  }
+  onMount(() => {
+    start();
+    return () => livechat?.stop();
+  });
 </script>
 
-{#if !inBottom}
-  <button
-    class="fixed w-10 h-10 text-3xl bg-purple-500 rounded-full bottom-2 font-icon text-neutral-100 right-2"
-    on:click={scrollToBottom}
-  >
-    arrow_downward
-  </button>
-{/if}
-
-<ul
-  class="flex flex-col w-full h-full gap-2 p-2 overflow-y-auto"
-  bind:this={list}
+<Swiper
+  modules={[HashNavigation]}
+  class="flex flex-col w-screen h-full"
+  hashNavigation={{ replaceState: true, watchState: true }}
+  on:slideChange={(e) => (idx = e.detail[0].realIndex)}
 >
-  {#each messages as node}
-    <li class="align-middle">
-      <span class="author">
-        {#if node.author.badges.length > 0}
-          {#each node.author.badges as badge}
-            {@const thumbnail = badge.custom_thumbnail[0]}
-            <img class="inline" src={thumbnail.url} alt={badge.tooltip} />
-          {/each}
-        {/if}
-        <span class="font-semibold text-green-600">
-          {node.author.name.text}
-        </span>
-      </span>
-      <span>
-        {#each node.message.runs as run}
-          {#if "emoji" in run && run.emoji.image.length > 1}
-            {@const image = run.emoji.image.at(-1)}
-            {#if image}
-              <!-- this should always be true, we just need this to silence warnings -->
-              <img
-                class="inline mr-1"
-                src={image.url}
-                height={image.height}
-                width={image.width}
-                alt={run.emoji.emoji_id}
-              />
-            {/if}
-          {:else}
-            {run.text}
-          {/if}
-        {/each}
-      </span>
-    </li>
-  {/each}
-</ul>
+  <NormalChat />
+  <MembersChat />
+  <SuperChat />
+  <BottomBar {idx} slot="container-end" />
+</Swiper>
 
 <style>
-  .author > span::after {
-    @apply content-[':'] text-neutral-300 font-normal mr-1;
+  :global(.swiper-wrapper) {
+    height: calc(100% - 4rem);
   }
 </style>
