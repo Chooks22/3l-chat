@@ -14,7 +14,7 @@
 	"dependencies": {
 		"@fontsource/material-icons": "^4.5.4",
 		"@fontsource/material-icons-outlined": "^4.5.4",
-		"autoprefixer": "^10.4.8",
+		"autoprefixer": "^10.4.12",
 		"masterchat": "^1.1.0",
 		"postcss": "^8.4.16",
 		"svelte-portal": "^2.2.0",
@@ -26,15 +26,15 @@
 		"@chookslint/eslint-config-typescript": "^2.2.1",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
-		"@typescript-eslint/eslint-plugin": "^5.27.0",
-		"@typescript-eslint/parser": "^5.27.0",
-		"eslint": "^8.16.0",
+		"@typescript-eslint/eslint-plugin": "^5.38.0",
+		"@typescript-eslint/parser": "^5.38.0",
+		"eslint": "^8.24.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"svelte": "^3.46.0",
-		"svelte-check": "^2.7.1",
-		"svelte-preprocess": "^4.10.6",
-		"tslib": "^2.3.1",
-		"typescript": "^4.7.4",
-		"vite": "^3.0.8"
+		"svelte": "^3.50.1",
+		"svelte-check": "^2.9.0",
+		"svelte-preprocess": "^4.10.7",
+		"tslib": "^2.4.0",
+		"typescript": "^4.8.3",
+		"vite": "^3.1.3"
 	}
 }
