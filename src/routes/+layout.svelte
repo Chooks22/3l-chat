@@ -3,8 +3,6 @@
   import "@fontsource/material-icons-outlined";
   import "../app.css";
 
-  import Header from "../lib/Header.svelte";
-
   import { onMount, setContext } from "svelte";
   import { writable } from "svelte/store";
   import { Innertube, UniversalCache } from "youtubei.js";
@@ -55,8 +53,6 @@
     });
   });
 </script>
-
-<Header />
 
 <main class="flex w-full h-full overflow-hidden">
   {#if $it === undefined}
