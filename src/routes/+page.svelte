@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
   import ChannelCard from "$lib/channels/ChannelCard.svelte";
   import type { Innertube } from "@chooks22/youtubei.js";
-  import { Video, type Channel } from "@chooks22/youtubei.js/classes";
+  import type { Channel, Video } from "@chooks22/youtubei.js/classes";
   import { getContext } from "svelte";
   import type { Readable } from "svelte/store";
 
@@ -19,7 +19,7 @@
   async function goToChannel(channelId: string) {
     const channel = await $it.getChannel(channelId);
     const liveVideo = channel.videos.find(
-      (video): video is Video => video.as(Video).duration.text === "LIVE"
+      (video): video is Video => (video as Video).duration.text === "LIVE"
     );
 
     if (liveVideo !== undefined) {
