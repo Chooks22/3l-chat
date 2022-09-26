@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type LiveChatPaidMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatPaidMessage";
+  import type { LiveChatPaidMessage } from "@chooks22/youtubei.js/classes";
   import MessageAuthor from "./MessageAuthor.svelte";
   import MessageContent from "./MessageContent.svelte";
 

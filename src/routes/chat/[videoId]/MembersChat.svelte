@@ -1,10 +1,10 @@
 <script lang="ts">
   import MessageList from "$lib/MessageList.svelte";
   import TextMessage from "$lib/messages/TextMessage.svelte";
+  import { LiveChatTextMessage } from "@chooks22/youtubei.js/classes";
   import { getContext } from "svelte";
   import type { Readable } from "svelte/store";
   import { SwiperSlide } from "swiper/svelte";
-  import LiveChatTextMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatTextMessage";
 
   const messages = getContext<Readable<LiveChatTextMessage[]>>("messages");
 </script>

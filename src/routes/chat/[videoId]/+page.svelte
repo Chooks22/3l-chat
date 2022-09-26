@@ -6,13 +6,14 @@
   import "swiper/css";
   import { Swiper } from "swiper/svelte";
 
-  import type { Innertube } from "youtubei.js";
-  import type ChatAction from "youtubei.js/dist/src/parser/classes/LiveChat";
-  import AddChatItemAction from "youtubei.js/dist/src/parser/classes/livechat/AddChatItemAction";
-  import type LiveChatPaidMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatPaidMessage";
-  import type LiveChatTextMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatTextMessage";
-  import LiveChat from "youtubei.js/dist/src/parser/youtube/LiveChat";
+  import type { Innertube } from "@chooks22/youtubei.js";
 
+  import {
+    AddChatItemAction,
+    type LiveChatPaidMessage,
+    type LiveChatTextMessage,
+  } from "@chooks22/youtubei.js/classes";
+  import { LiveChat, type ChatAction } from "@chooks22/youtubei.js/youtube";
   import BottomBar from "./BottomBar.svelte";
   import MembersChat from "./MembersChat.svelte";
   import NormalChat from "./NormalChat.svelte";

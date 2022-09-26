@@ -1,8 +1,9 @@
 <script lang="ts">
-  import LiveChatAuthorBadge from "youtubei.js/dist/src/parser/classes/LiveChatAuthorBadge";
-  import type MetadataBadge from "youtubei.js/dist/src/parser/classes/MetadataBadge";
-  import type Text from "youtubei.js/dist/src/parser/classes/misc/Text";
-  import type Thumbnail from "youtubei.js/dist/src/parser/classes/misc/Thumbnail";
+  import {
+    LiveChatAuthorBadge,
+    MetadataBadge,
+  } from "@chooks22/youtubei.js/classes";
+  import type { Thumbnail } from "@chooks22/youtubei.js/items";
 
   interface LiveChatAuthor {
     id: string;

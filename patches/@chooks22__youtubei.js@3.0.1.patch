@@ -1,0 +1,22 @@
+diff --git a/esm/parser/youtube/LiveChat.js b/esm/parser/youtube/LiveChat.js
+index e9aa170b48d023de671941b60bc6df20ca1444ed..41eb381952d21a2704b166b9b32d7dc7aa200598 100644
+--- a/esm/parser/youtube/LiveChat.js
++++ b/esm/parser/youtube/LiveChat.js
+@@ -113,7 +113,7 @@ _LiveChat_actions = new WeakMap(), _LiveChat_video_info = new WeakMap(), _LiveCh
+             clearTimeout(lc_poller);
+             this.running && __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
+         })().catch((err) => Promise.reject(err));
+-    }, __classPrivateFieldGet(this, _LiveChat_lc_polling_interval_ms, "f"));
++    }, __classPrivateFieldGet(this, _LiveChat_lc_polling_interval_ms, "f") / 20);
+ }, _LiveChat_emitSmoothedActions = 
+ /**
+  * Ensures actions are emitted at the right speed.
+@@ -163,7 +163,7 @@ async function _LiveChat_emitSmoothedActions(actions) {
+             clearTimeout(md_poller);
+             this.running && __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata).call(this);
+         })().catch((err) => Promise.reject(err));
+-    }, __classPrivateFieldGet(this, _LiveChat_md_polling_interval_ms, "f"));
++    }, __classPrivateFieldGet(this, _LiveChat_md_polling_interval_ms, "f") / 5);
+ }, _LiveChat_wait = async function _LiveChat_wait(ms) {
+     return new Promise((resolve) => setTimeout(() => resolve(), ms));
+ };

@@ -2,11 +2,13 @@
   import MessageList from "$lib/MessageList.svelte";
   import PaidMessage from "$lib/messages/PaidMessage.svelte";
   import TextMessage from "$lib/messages/TextMessage.svelte";
+  import {
+    LiveChatPaidMessage,
+    LiveChatTextMessage,
+  } from "@chooks22/youtubei.js/classes";
   import { getContext } from "svelte";
   import type { Readable } from "svelte/store";
   import { SwiperSlide } from "swiper/svelte";
-  import LiveChatPaidMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatPaidMessage";
-  import LiveChatTextMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatTextMessage";
 
   type Store = Readable<(LiveChatTextMessage | LiveChatPaidMessage)[]>;
   const messages = getContext<Store>("messages");

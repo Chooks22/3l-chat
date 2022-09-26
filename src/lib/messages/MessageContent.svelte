@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type EmojiRun from "youtubei.js/dist/src/parser/classes/misc/EmojiRun";
-  import type TextRun from "youtubei.js/dist/src/parser/classes/misc/TextRun";
+  import type { EmojiRun, TextRun } from "@chooks22/youtubei.js/items";
 
   export let runs: (TextRun | EmojiRun)[] = [];
 </script>

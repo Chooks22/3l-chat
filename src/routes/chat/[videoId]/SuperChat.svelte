@@ -1,10 +1,10 @@
 <script lang="ts">
   import MessageList from "$lib/MessageList.svelte";
   import PaidMessage from "$lib/messages/PaidMessage.svelte";
+  import { LiveChatPaidMessage } from "@chooks22/youtubei.js/classes";
   import { getContext } from "svelte";
   import type { Readable } from "svelte/store";
   import { SwiperSlide } from "swiper/svelte";
-  import LiveChatPaidMessage from "youtubei.js/dist/src/parser/classes/livechat/items/LiveChatPaidMessage";
 
   const messages = getContext<Readable<LiveChatPaidMessage[]>>("messages");
 </script>
