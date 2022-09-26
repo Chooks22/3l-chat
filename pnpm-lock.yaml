@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 patchedDependencies:
   '@chooks22/youtubei.js@3.0.1':
-    hash: ruyajejktfhsfexmtaxy5e6ewy
+    hash: 6kxvg3u3vttmvkwoffsxvaujsu
     path: patches/@chooks22__youtubei.js@3.0.1.patch
 
 specifiers:
@@ -30,7 +30,7 @@ specifiers:
   vite: ^3.1.3
 
 dependencies:
-  '@chooks22/youtubei.js': 3.0.1_ruyajejktfhsfexmtaxy5e6ewy
+  '@chooks22/youtubei.js': 3.0.1_6kxvg3u3vttmvkwoffsxvaujsu
   '@fontsource/material-icons': 4.5.4
   '@fontsource/material-icons-outlined': 4.5.4
   autoprefixer: 10.4.12_postcss@8.4.16
@@ -57,7 +57,7 @@ devDependencies:
 
 packages:
 
-  /@chooks22/youtubei.js/3.0.1_ruyajejktfhsfexmtaxy5e6ewy:
+  /@chooks22/youtubei.js/3.0.1_6kxvg3u3vttmvkwoffsxvaujsu:
     resolution: {integrity: sha512-7iVgC2viqIGpPfrsaChpa43cdiCK9Nv/VfeYv5wjZtJCmptmWEYRIJb52pi53U7nF7V568hIyNZJJbpuGXb/nA==}
     dependencies:
       jintr: 0.3.1
