@@ -3,9 +3,9 @@
   import "@fontsource/material-icons-outlined";
   import "../app.css";
 
+  import { Innertube, UniversalCache } from "@chooks22/youtubei.js";
   import { onMount, setContext } from "svelte";
   import { writable } from "svelte/store";
-  import { Innertube, UniversalCache } from "youtubei.js";
 
   const proxy: typeof fetch = async (input, init) => {
     // url
@@ -54,7 +54,7 @@
   });
 </script>
 
-<main class="flex w-full h-full overflow-hidden">
+<main class="flex flex-col w-full h-full overflow-hidden">
   {#if $it === undefined}
     <!-- @todo: better loading placeholder -->
     <span>loading</span>
