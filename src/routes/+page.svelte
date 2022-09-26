@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import ChannelCard from "$lib/channels/ChannelCard.svelte";
   import type { Innertube } from "@chooks22/youtubei.js";
-  import type { Channel } from "@chooks22/youtubei.js/classes";
+  import { Video, type Channel } from "@chooks22/youtubei.js/classes";
   import { getContext } from "svelte";
   import type { Readable } from "svelte/store";
 
@@ -13,6 +14,20 @@
   async function search() {
     const res = await $it.search(query, { type: "channel" });
     output = res.channels as Channel[];
+  }
+
+  async function goToChannel(channelId: string) {
+    const channel = await $it.getChannel(channelId);
+    const liveVideo = channel.videos.find(
+      (video): video is Video => video.as(Video).duration.text === "LIVE"
+    );
+
+    if (liveVideo !== undefined) {
+      goto(`/chat/${liveVideo.id}`);
+    } else {
+      // @fixme: properly handle this
+      alert("Youtuber isn't live!");
+    }
   }
 </script>
 
@@ -36,6 +51,6 @@
 
 <ul class="flex flex-col h-full gap-4 py-2 overflow-y-auto">
   {#each output as item}
-    <ChannelCard channel={item} />
+    <ChannelCard on:click={(e) => goToChannel(e.detail)} channel={item} />
   {/each}
 </ul>

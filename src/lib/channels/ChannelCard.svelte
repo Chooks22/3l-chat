@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Channel } from "@chooks22/youtubei.js/classes";
+  import { createEventDispatcher } from "svelte";
 
   function getVanity(url: string | null): string {
     if (url !== null) {
@@ -12,11 +13,13 @@
     return "";
   }
 
+  const dispatch = createEventDispatcher<{ click: string }>();
   export let channel: Channel;
 </script>
 
 <li
-  class="grid grid-cols-[auto,1fr] grid-rows-[1fr,1fr] py-2 mx-4 overflow-hidden rounded-md shrink-0 bg-neutral-800 shadow-sm"
+  class="grid grid-cols-[auto,1fr] grid-rows-[1fr,1fr] py-2 mx-4 overflow-hidden rounded-md shrink-0 bg-neutral-800 shadow-sm hover:bg-neutral-700 cursor-pointer"
+  on:click={() => dispatch("click", channel.author.id)}
 >
   <img
     src={"https:" + channel.author.best_thumbnail?.url}
