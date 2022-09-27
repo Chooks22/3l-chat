@@ -3,10 +3,12 @@
   import "@fontsource/material-icons-outlined";
   import "../app.css";
 
+  import { env } from "$env/dynamic/public";
   import { Innertube, UniversalCache } from "@chooks22/youtubei.js";
   import { onMount, setContext } from "svelte";
   import { writable } from "svelte/store";
 
+  const proxyUrl = new URL(env.PUBLIC_PROXY_URL);
   const proxy: typeof fetch = async (input, init) => {
     // url
     const url =
@@ -18,9 +20,8 @@
 
     // transform the url for use with our proxy
     url.searchParams.set("__host", url.host);
-    // @fixme: switch to truffle functions
-    url.host = "3l-chat-proxy.deno.dev";
-    url.protocol = "https:";
+    url.host = proxyUrl.host;
+    url.protocol = proxyUrl.protocol;
 
     const headers = init?.headers
       ? new Headers(init.headers)
