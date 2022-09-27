@@ -4,6 +4,9 @@ patchedDependencies:
   '@chooks22/youtubei.js@3.0.1':
     hash: 6kxvg3u3vttmvkwoffsxvaujsu
     path: patches/@chooks22__youtubei.js@3.0.1.patch
+  swiper@8.4.2:
+    hash: mwfdlsau4pjgiokcakj7gzbzoy
+    path: patches/swiper@8.4.2.patch
 
 specifiers:
   '@chooks22/youtubei.js': 3.0.1
@@ -37,7 +40,7 @@ dependencies:
   masterchat: 1.1.0
   postcss: 8.4.16
   svelte-portal: 2.2.0
-  swiper: 8.4.2
+  swiper: 8.4.2_mwfdlsau4pjgiokcakj7gzbzoy
   tailwindcss: 3.1.8_postcss@8.4.16
 
 devDependencies:
@@ -2256,7 +2259,7 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /swiper/8.4.2:
+  /swiper/8.4.2_mwfdlsau4pjgiokcakj7gzbzoy:
     resolution: {integrity: sha512-nMD/RHVYxJxrLqjWQX2n0B94ANwpnuUv/3PUDT8Aaf+mSteFvZGFng4ypAYq70zW4svryyV+8TRlbRZ+6cgv9A==}
     engines: {node: '>= 4.7.0'}
     requiresBuild: true
@@ -2264,6 +2267,7 @@ packages:
       dom7: 4.0.4
       ssr-window: 4.0.2
     dev: false
+    patched: true
 
   /tailwindcss/3.1.8_postcss@8.4.16:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}

@@ -39,7 +39,8 @@
 	},
 	"pnpm": {
 		"patchedDependencies": {
-			"@chooks22/youtubei.js@3.0.1": "patches/@chooks22__youtubei.js@3.0.1.patch"
+			"@chooks22/youtubei.js@3.0.1": "patches/@chooks22__youtubei.js@3.0.1.patch",
+			"swiper@8.4.2": "patches/swiper@8.4.2.patch"
 		}
 	}
 }
