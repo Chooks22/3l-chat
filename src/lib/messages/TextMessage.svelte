@@ -11,6 +11,8 @@
     <img
       src={chat.author.icon}
       alt={chat.author.name}
+      width="24"
+      height="24"
       class="w-6 h-6 mx-2 rounded-full"
     />
     <span class="ml-2">
