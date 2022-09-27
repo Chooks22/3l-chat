@@ -1,43 +1,34 @@
 <script lang="ts">
-  import type { LiveChatPaidMessage } from "@chooks22/youtubei.js/classes";
+  import type { PaidChat } from "$lib/youtube/parser.js";
   import MessageAuthor from "./MessageAuthor.svelte";
   import MessageContent from "./MessageContent.svelte";
 
-  function hexify(color: number) {
-    const hex = color.toString(16).slice(2);
-    return `#${hex}`;
-  }
-
-  export let message: LiveChatPaidMessage;
+  export let chat: PaidChat;
 </script>
 
 <li class="flex flex-col w-full my-2 overflow-hidden rounded-sm shrink-0">
   <div
     class="flex gap-4 px-4 py-2 font-bold"
-    style:background-color={hexify(message.header_background_color)}
-    style:color={hexify(message.header_text_color)}
+    style:background-color={chat.data.styles.header.background}
+    style:color={chat.data.styles.header.text}
   >
-    <img
-      src={message.author.thumbnails[0].url}
-      alt=""
-      class="inline w-12 h-12 rounded-full"
-    />
+    <img src={chat.author.icon} alt="" class="inline w-12 h-12 rounded-full" />
     <div class="flex flex-col">
       <span>
-        <MessageAuthor author={message.author} />
+        <MessageAuthor author={chat.author} />
       </span>
       <span>
-        {message.purchase_amount}
+        {chat.data.amount}
       </span>
     </div>
   </div>
-  {#if message.message.runs}
+  {#if chat.runs.length > 0}
     <div
       class="px-4 py-2"
-      style:background-color={hexify(message.body_background_color)}
-      style:color={hexify(message.body_text_color)}
+      style:background-color={chat.data.styles.body.background}
+      style:color={chat.data.styles.body.text}
     >
-      <MessageContent runs={message.message.runs} />
+      <MessageContent runs={chat.runs} />
     </div>
   {/if}
 </li>

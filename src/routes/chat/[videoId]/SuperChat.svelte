@@ -1,19 +1,19 @@
 <script lang="ts">
   import MessageList from "$lib/MessageList.svelte";
   import PaidMessage from "$lib/messages/PaidMessage.svelte";
-  import { LiveChatPaidMessage } from "@chooks22/youtubei.js/classes";
+  import type { Chat } from "$lib/youtube/parser.js";
   import { getContext } from "svelte";
   import type { Readable } from "svelte/store";
   import { SwiperSlide } from "swiper/svelte";
 
-  const messages = getContext<Readable<LiveChatPaidMessage[]>>("messages");
+  const chats = getContext<Readable<Chat[]>>("chats");
 </script>
 
 <SwiperSlide data-hash="supers">
   <MessageList title="Super Chats">
-    {#each $messages as message}
-      {#if message.is(LiveChatPaidMessage)}
-        <PaidMessage {message} />
+    {#each $chats as chat (chat.id)}
+      {#if chat.type === "paid"}
+        <PaidMessage {chat} />
       {/if}
     {/each}
   </MessageList>

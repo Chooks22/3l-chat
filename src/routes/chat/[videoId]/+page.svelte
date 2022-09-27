@@ -7,14 +7,15 @@
   import { Swiper } from "swiper/svelte";
   import "./swiper.css";
 
+  import { parseChatMessage, type Chat } from "$lib/youtube/parser.js";
   import type { Innertube } from "@chooks22/youtubei.js";
-
   import {
     AddChatItemAction,
-    type LiveChatPaidMessage,
+    LiveChatPaidMessage,
     type LiveChatTextMessage,
   } from "@chooks22/youtubei.js/classes";
   import { LiveChat, type ChatAction } from "@chooks22/youtubei.js/youtube";
+
   import BottomBar from "./BottomBar.svelte";
   import MembersChat from "./MembersChat.svelte";
   import NormalChat from "./NormalChat.svelte";
@@ -26,10 +27,10 @@
   const it = getContext<Readable<Innertube>>("yt");
 
   let livechat: LiveChat;
+  type RawMessage = LiveChatTextMessage | LiveChatPaidMessage;
 
-  type Message = LiveChatTextMessage | LiveChatPaidMessage;
-  let messages = writable<Message[]>([]);
-  setContext("messages", messages);
+  let chats = writable<Chat[]>([]);
+  setContext("chats", chats);
 
   async function start() {
     console.info("getting video");
@@ -40,8 +41,9 @@
     livechat.on("chat-update", (action: ChatAction) => {
       if (action.is(AddChatItemAction) && action.item !== null) {
         console.debug(action.item);
-        $messages.push(action.item as Message);
-        $messages = $messages;
+        const chat = parseChatMessage(action.item as RawMessage);
+        $chats.push(chat);
+        $chats = $chats;
       }
     });
 
@@ -50,7 +52,12 @@
 
   onMount(() => {
     start();
-    return () => livechat?.stop();
+    const timer = setInterval(() => ($chats = $chats.slice(-250)), 1000);
+
+    return () => {
+      clearInterval(timer);
+      livechat?.stop();
+    };
   });
 </script>
 

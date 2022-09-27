@@ -1,23 +1,23 @@
 <script lang="ts">
-  import type { LiveChatTextMessage } from "@chooks22/youtubei.js/classes";
+  import type { Chat } from "$lib/youtube/parser.js";
   import MessageAuthor from "./MessageAuthor.svelte";
   import MessageContent from "./MessageContent.svelte";
 
-  export let message: LiveChatTextMessage;
+  export let chat: Chat;
 </script>
 
 <li class="flex">
-  {#if message.author !== undefined}
+  {#if chat.author !== undefined}
     <img
-      src={message.author.thumbnails[0].url}
-      alt=""
+      src={chat.author.icon}
+      alt={chat.author.name}
       class="w-6 h-6 mx-2 rounded-full"
     />
     <span class="ml-2">
-      <MessageAuthor colorize author={message.author} />
-      <MessageContent runs={message.message.runs} />
+      <MessageAuthor colorize author={chat.author} />
+      <MessageContent runs={chat.runs} />
     </span>
   {:else}
-    <MessageContent runs={message.message.runs} />
+    <MessageContent runs={chat.runs} />
   {/if}
 </li>

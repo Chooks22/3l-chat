@@ -1,15 +1,15 @@
 <script lang="ts">
-  import type { EmojiRun, TextRun } from "@chooks22/youtubei.js/items";
+  import type { ChatRun } from "$lib/youtube/parser.js";
 
-  export let runs: (TextRun | EmojiRun)[] = [];
+  export let runs: ChatRun[];
 </script>
 
-<span class="space-x-0.5 leading-none">
+<span class="space-x-0.5 leading-none break-words">
   {#each runs as run}
-    {#if "emoji" in run}
-      <img src={run.emoji.image[0].url} alt="" class="inline w-6 h-6" />
+    {#if run.type === "emoji"}
+      <img src={run.value} alt={`emoji ${run.id}`} class="inline w-6 h-6" />
     {:else}
-      {run.text}
+      {run.value}
     {/if}
   {/each}
 </span>
