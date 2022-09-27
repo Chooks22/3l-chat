@@ -98,7 +98,7 @@ export function parseChatMessage(item: LiveChatTextMessage | LiveChatPaidMessage
       ? {
         id: run.emoji.emoji_id,
         type: 'emoji',
-        value: run.emoji.image[1].url,
+        value: (run.emoji.image[1] ?? run.emoji.image[0]).url,
       }
       : {
         id: null,
