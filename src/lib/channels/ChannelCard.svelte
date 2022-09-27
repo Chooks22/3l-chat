@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Channel } from "@chooks22/youtubei.js/classes";
-  import { createEventDispatcher } from "svelte";
 
   function getVanity(url: string | null): string {
     if (url !== null) {
@@ -13,36 +12,37 @@
     return "";
   }
 
-  const dispatch = createEventDispatcher<{ click: string }>();
   export let channel: Channel;
 </script>
 
-<li
-  class="grid grid-cols-[auto,1fr] grid-rows-[1fr,1fr] py-2 mx-4 overflow-hidden rounded-md shrink-0 bg-neutral-800 shadow-sm hover:bg-neutral-700 cursor-pointer"
-  on:click={() => dispatch("click", channel.author.id)}
->
-  <img
-    src={"https:" + channel.author.best_thumbnail?.url}
-    alt=""
-    class="w-24 h-24 mr-6 -my-2 row-span-full "
-  />
-  <div class="flex flex-col">
-    <h5
-      class="relative inline-block text-lg leading-none"
-      class:verified={channel.author.is_verified}
-    >
-      {channel.author.name}
-    </h5>
-    <span class="text-xs align-text-top text-neutral-400">
-      {getVanity(channel.author.url)}
-    </span>
-  </div>
-  <div
-    class="flex flex-col justify-end pt-0 text-sm leading-tight text-neutral-500"
+<li>
+  <a
+    href={`/c/${channel.author.id}`}
+    class="grid grid-cols-[auto,1fr] grid-rows-[1fr,1fr] py-2 mx-4 overflow-hidden rounded-md shrink-0 bg-neutral-800 shadow-sm hover:bg-neutral-700 cursor-pointer"
   >
-    <span>{channel.subscribers}</span>
-    <span>{channel.videos}</span>
-  </div>
+    <img
+      src={"https:" + channel.author.best_thumbnail?.url}
+      alt=""
+      class="w-24 h-24 mr-6 -my-2 row-span-full "
+    />
+    <div class="flex flex-col">
+      <h5
+        class="relative inline-block text-lg leading-none"
+        class:verified={channel.author.is_verified}
+      >
+        {channel.author.name}
+      </h5>
+      <span class="text-xs align-text-top text-neutral-400">
+        {getVanity(channel.author.url)}
+      </span>
+    </div>
+    <div
+      class="flex flex-col justify-end pt-0 text-sm leading-tight text-neutral-500"
+    >
+      <span>{channel.subscribers}</span>
+      <span>{channel.videos}</span>
+    </div>
+  </a>
 </li>
 
 <style>
