@@ -3,12 +3,12 @@
   import "@fontsource/material-icons-outlined";
   import "../app.css";
 
-  import { env } from "$env/dynamic/public";
+  import { PUBLIC_PROXY_URL } from "$env/static/public";
   import { Innertube, UniversalCache } from "@chooks22/youtubei.js";
   import { onMount, setContext } from "svelte";
   import { writable } from "svelte/store";
 
-  const proxyUrl = new URL(env.PUBLIC_PROXY_URL);
+  const proxyUrl = new URL(PUBLIC_PROXY_URL);
   const proxy: typeof fetch = async (input, init) => {
     // url
     const url =
