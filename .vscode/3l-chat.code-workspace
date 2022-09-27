@@ -1,0 +1,38 @@
+{
+  "folders": [
+    {
+      "path": "../src/routes",
+      "name": "🚀 routes"
+    },
+    {
+      "path": "../src/lib",
+      "name": "🏛️ lib"
+    },
+    {
+      "path": "../src",
+      "name": "🏁 src"
+    },
+    {
+      "path": "../",
+      "name": "🌱 root"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "svelte.svelte-vscode",
+      "ardenivanov.svelte-intellisense",
+      "ahmadawais.emoji-log-vscode",
+      "bradlc.vscode-tailwindcss",
+      "heybourn.headwind"
+    ]
+  },
+  "settings": {
+    "files.exclude": {
+      "src/": true
+    },
+    "workbench.editor.labelFormat": "short",
+    "explorer.sortOrder": "filesFirst",
+    "explorer.compactFolders": false
+  }
+}
