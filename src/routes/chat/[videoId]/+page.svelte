@@ -5,6 +5,7 @@
   import { HashNavigation } from "swiper";
   import "swiper/css";
   import { Swiper } from "swiper/svelte";
+  import "./swiper.css";
 
   import type { Innertube } from "@chooks22/youtubei.js";
 
@@ -64,9 +65,3 @@
   <SuperChat />
   <BottomBar {idx} slot="container-end" />
 </Swiper>
-
-<style>
-  :global(.swiper-wrapper) {
-    height: calc(100% - 4rem);
-  }
-</style>
