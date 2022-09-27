@@ -70,7 +70,7 @@
     modules={[HashNavigation]}
     class="flex flex-col w-screen h-full"
     hashNavigation={{ replaceState: true, watchState: true }}
-    on:slideChange={(e) => ($page = e.detail[0].realIndex)}
+    on:slideChange={(e) => ($idx = e.detail[0].realIndex)}
   >
     <NormalChat />
     <MembersChat />
