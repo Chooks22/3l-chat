@@ -33,10 +33,15 @@
     url.searchParams.set("__headers", JSON.stringify([...headers]));
 
     // copy over the request
-    const request = new Request(
-      url,
-      input instanceof Request ? input : undefined
-    );
+    let request: Request;
+
+    if (input instanceof Request) {
+      // @ts-expect-error outdated types
+      input.duplex = "half";
+      request = new Request(url, input);
+    } else {
+      request = new Request(url);
+    }
 
     headers.delete("user-agent");
 
