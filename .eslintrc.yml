@@ -6,7 +6,10 @@ env:
   browser: true
   node: true
 overrides:
-  - files: "*.{ts,svelte}"
+  - files: "proxy.ts"
+    extends:
+      - "@chookslint/eslint-config-typescript/strict"
+  - files: "src/**/*.{ts,svelte}"
     extends:
       - "@chookslint/eslint-config-typescript/strict"
       - "@chookslint/eslint-config-typescript/types"
