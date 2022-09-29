@@ -1,6 +1,5 @@
 import { parseChatMessage, type Chat } from '$lib/youtube/parser.js'
-import type { LiveChatPaidMessage, LiveChatTextMessage } from '@chooks22/youtubei.js/classes'
-import { AddChatItemAction } from '@chooks22/youtubei.js/classes'
+import { AddChatItemAction, LiveChatPlaceholderItem, type LiveChatPaidMessage, type LiveChatTextMessage } from '@chooks22/youtubei.js/classes'
 import type { ChatAction, VideoInfo } from '@chooks22/youtubei.js/youtube'
 import { LiveChat } from '@chooks22/youtubei.js/youtube'
 import { get, type Writable } from 'svelte/store'
@@ -23,6 +22,10 @@ export function startChat(videoInfo: VideoInfo, chats: Writable<Chat[]>): Promis
 
   livechat.on('chat-update', (action: ChatAction) => {
     if (action.is(AddChatItemAction) && action.item) {
+      if (action.item.is(LiveChatPlaceholderItem)) {
+        return
+      }
+
       const chat = parseChatMessage(action.item as RawMessage)
       console.debug(chat)
       _chats.push(chat)
