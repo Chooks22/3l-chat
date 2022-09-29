@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "svelte.svelte-vscode",
+    "ardenivanov.svelte-intellisense",
+    "ahmadawais.emoji-log-vscode",
+    "bradlc.vscode-tailwindcss",
+    "heybourn.headwind"
+  ]
+}

@@ -1,7 +1,9 @@
 {
+  "workbench.editor.labelFormat": "short",
   "deno.enable": true,
   "deno.enablePaths": [
     "proxy.ts"
   ],
-  "eslint.enable": false
+  "explorer.sortOrder": "filesFirst",
+  "explorer.compactFolders": false
 }
