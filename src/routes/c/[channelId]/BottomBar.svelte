@@ -2,6 +2,7 @@
   import AppBar from "$lib/AppBar.svelte";
   import AppBarItem from "$lib/AppBarItem.svelte";
   import { getContext } from "svelte";
+  import type { Readable } from "svelte/store";
 
   const page = getContext<Readable<number>>("page");
 </script>

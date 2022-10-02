@@ -1,6 +1,8 @@
 <script lang="ts">
   import MessageList from "$lib/MessageList.svelte";
+  import MemberMessage from "$lib/messages/MemberMessage.svelte";
   import PaidMessage from "$lib/messages/PaidMessage.svelte";
+  import StickerMessage from "$lib/messages/StickerMessage.svelte";
   import TextMessage from "$lib/messages/TextMessage.svelte";
   import type { Chat } from "$lib/youtube/parser.js";
   import { getContext } from "svelte";
@@ -15,8 +17,12 @@
     {#each $chats as chat (chat.id)}
       {#if chat.type === "text"}
         <TextMessage {chat} />
-      {:else}
+      {:else if chat.type === "member"}
+        <MemberMessage {chat} />
+      {:else if chat.type === "paid"}
         <PaidMessage {chat} />
+      {:else}
+        <StickerMessage {chat} />
       {/if}
     {/each}
   </MessageList>
