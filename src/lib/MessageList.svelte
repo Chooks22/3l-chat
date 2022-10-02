@@ -1,40 +1,39 @@
 <script lang="ts">
-  import { afterUpdate, onMount } from "svelte";
+  import { afterUpdate, beforeUpdate, getContext } from "svelte";
+  import type { Readable } from "svelte/store";
 
-  export let title: string;
-
-  let inBottom = true;
-  let container: HTMLUListElement;
-  let span: HTMLSpanElement;
-
-  onMount(() => {
-    const io = new IntersectionObserver(([item]) => {
-      inBottom = item.isIntersecting;
-    });
-
-    io.observe(span);
-
-    return () => io.disconnect();
-  });
-
-  function scrollToBottom() {
-    container.scrollTo({ top: container.scrollHeight + 1 });
+  interface Margins {
+    top: number;
+    bottom: number;
   }
 
+  export let title: string;
+  const margins = getContext<Readable<Margins>>("margins");
+
+  let autoscroll = true;
+  let container: HTMLUListElement;
+
+  beforeUpdate(() => {
+    autoscroll =
+      Boolean(container) &&
+      container.offsetHeight + container.scrollTop >
+        container.scrollHeight - 16;
+  });
+
   afterUpdate(() => {
-    if (inBottom) {
-      scrollToBottom();
+    if (autoscroll) {
+      container.scrollTo({ top: container.scrollHeight });
     }
   });
 </script>
 
-<section class="flex w-screen h-full overflow-hidden">
+<section class="flex w-screen">
   <h2 hidden>{title}</h2>
   <ul
-    class="flex flex-col w-full h-full gap-2 p-2 overflow-y-auto"
+    class="flex flex-col w-full gap-2 p-2 overflow-y-auto"
+    style:height={`calc(100vh - ${$margins.bottom}px)`}
     bind:this={container}
   >
     <slot />
-    <div class="pb-1 -mb-2" bind:this={span} />
   </ul>
 </section>

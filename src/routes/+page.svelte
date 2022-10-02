@@ -3,6 +3,7 @@
   import type { Innertube } from "@chooks22/youtubei.js";
   import type { Channel } from "@chooks22/youtubei.js/classes";
   import { getContext } from "svelte";
+  import { portal } from "svelte-portal";
   import type { Readable } from "svelte/store";
 
   // @todo: login
@@ -19,7 +20,8 @@
 </script>
 
 <form
-  class="z-40 flex w-full gap-2 p-4 shadow-lg bg-neutral-800 h-fit"
+  use:portal={"#header"}
+  class="flex gap-2 p-4 shadow-lg bg-neutral-800"
   on:submit|preventDefault={search}
 >
   <input
@@ -36,7 +38,7 @@
   </button>
 </form>
 
-<ul class="flex flex-col h-full gap-4 py-2 overflow-y-auto">
+<ul class="flex flex-col gap-4 py-2">
   {#each channels as channel (channel.author.id)}
     <ChannelCard {channel} />
   {/each}

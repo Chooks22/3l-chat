@@ -12,6 +12,7 @@
   import { HashNavigation } from "swiper";
   import { Swiper } from "swiper/svelte";
 
+  import Portal from "svelte-portal";
   import BottomBar from "./BottomBar.svelte";
   import MembersChat from "./MembersChat.svelte";
   import NormalChat from "./NormalChat.svelte";
@@ -68,13 +69,15 @@
 {:else}
   <Swiper
     modules={[HashNavigation]}
-    class="flex flex-col w-screen h-full"
+    class="flex flex-col w-screen"
     hashNavigation={{ replaceState: true, watchState: true }}
     on:slideChange={(e) => ($idx = e.detail[0].realIndex)}
   >
     <NormalChat />
     <MembersChat />
     <SuperChat />
-    <BottomBar slot="container-end" />
   </Swiper>
+  <Portal target="#footer">
+    <BottomBar />
+  </Portal>
 {/if}

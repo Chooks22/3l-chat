@@ -49,8 +49,8 @@
     return fetch(request, { ...init, headers });
   };
 
-  const it = writable<Innertube>();
-  setContext("yt", it);
+  const it = setContext("yt", writable<Innertube>());
+  const margins = setContext("margins", writable({ top: 0, bottom: 0 }));
 
   onMount(async () => {
     $it = await Innertube.create({
@@ -60,7 +60,17 @@
   });
 </script>
 
-<main class="flex flex-col w-full h-full overflow-hidden">
+<header
+  id="header"
+  class="fixed top-0 left-0 z-40 w-screen"
+  bind:clientHeight={$margins.top}
+/>
+
+<main
+  class="flex flex-col w-full"
+  style:margin-top={`${$margins.top}px`}
+  style:margin-bottom={`${$margins.bottom}px`}
+>
   {#if $it === undefined}
     <!-- @todo: better loading placeholder -->
     <span>loading</span>
@@ -68,3 +78,9 @@
     <slot />
   {/if}
 </main>
+
+<footer
+  id="footer"
+  class="fixed bottom-0 left-0 z-40 w-screen"
+  bind:clientHeight={$margins.bottom}
+/>

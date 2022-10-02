@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  @apply w-1 h-1 bg-neutral-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-neutral-700;
+}
+
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
