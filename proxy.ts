@@ -1,6 +1,6 @@
 // Adapted from: https://github.com/LuanRT/YouTube.js/blob/main/examples/browser/proxy/deno.ts.
 // Modified to use HTTPS.
-import { serveTls } from 'https://deno.land/std@0.148.0/http/server.ts'
+import { serve, serveTls } from 'https://deno.land/std@0.148.0/http/server.ts'
 
 const port = 8080
 
@@ -85,9 +85,13 @@ const handler = async (request: Request): Promise<Response> => {
   })
 }
 
-const certs = `${Deno.env.get('HOME')}/.vite-plugin-mkcert/certs`
-await serveTls(handler, {
-  port,
-  certFile: `${certs}/dev.pem`,
-  keyFile: `${certs}/dev.key`,
-})
+if (Deno.args.includes('--https')) {
+  const certs = `${Deno.env.get('HOME')}/.vite-plugin-mkcert/certs`
+  await serveTls(handler, {
+    port,
+    certFile: `${certs}/dev.pem`,
+    keyFile: `${certs}/dev.key`,
+  })
+} else {
+  await serve(handler, { port })
+}

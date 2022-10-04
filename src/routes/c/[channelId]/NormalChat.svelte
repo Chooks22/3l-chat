@@ -4,12 +4,11 @@
   import PaidMessage from "$lib/messages/PaidMessage.svelte";
   import StickerMessage from "$lib/messages/StickerMessage.svelte";
   import TextMessage from "$lib/messages/TextMessage.svelte";
-  import type { Chat } from "$lib/youtube/parser.js";
   import { getContext } from "svelte";
-  import type { Readable } from "svelte/store";
   import { SwiperSlide } from "swiper/svelte";
+  import type { Stream } from "./start-chat.js";
 
-  const chats = getContext<Readable<Chat[]>>("chats");
+  const { chats } = getContext<Stream>("stream");
 </script>
 
 <SwiperSlide data-hash="">

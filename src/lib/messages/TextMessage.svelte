@@ -15,7 +15,7 @@
       height="24"
       class="w-6 h-6 mx-2 rounded-full"
     />
-    <span class="ml-2">
+    <span class="ml-2 overflow-x-hidden">
       <MessageAuthor colorize author={chat.author} />
       <MessageContent runs={chat.runs} />
     </span>

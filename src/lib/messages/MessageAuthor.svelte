@@ -7,19 +7,43 @@
 
 <span class="mr-2">
   <span
-    class="font-bold"
-    class:text-green-500={colorize && author.isMember}
-    class:text-blue-500={colorize && author.isModerator}
+    class="font-bold rounded-sm"
+    class:formatted={colorize}
+    class:member={author.isMember}
+    class:moderator={author.isModerator}
+    class:owner={author.isOwner}
   >
     {author.name}
   </span>
   {#if author.isModerator}
     <!-- @todo: handle icon automatically -->
-    <span class="text-blue-500 font-icon">build</span>
+    <span class="font-icon text-blue-500">build</span>
   {/if}
   {#each author.badges as badge}
     {#if badge.type === "custom"}
-      <img src={badge.value} alt={badge.tooltip} class="inline-block mb-1" />
+      <img
+        src={badge.value}
+        alt={badge.tooltip}
+        class="inline-block w-6 h-6 mb-1"
+        width="24"
+        height="24"
+      />
     {/if}
   {/each}
 </span>
+
+<style>
+  .formatted.member {
+    @apply text-green-500;
+  }
+  .formatted.moderator {
+    @apply text-blue-500;
+  }
+  .formatted.owner {
+    @apply px-1 bg-yellow-500 text-neutral-900;
+  }
+  .formatted.owner::after {
+    content: "check";
+    @apply font-icon align-middle;
+  }
+</style>

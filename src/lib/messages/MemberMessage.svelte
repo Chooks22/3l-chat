@@ -4,12 +4,12 @@
   export let chat: MemberAdd;
 </script>
 
-<li class="flex flex-col w-full my-2 overflow-hidden rounded-sm shrink-0">
-  <div class="bg-green-800 w-full flex p-4 gap-4">
+<li class="shrink-0 flex flex-col w-full my-1 overflow-hidden rounded-sm">
+  <div class="flex w-full gap-4 p-4 bg-green-800">
     <img
       src={chat.author.icon}
       alt={chat.author.name}
-      class="h-12 w-12 rounded-full"
+      class="w-12 h-12 rounded-full"
       width="48"
       height="48"
     />

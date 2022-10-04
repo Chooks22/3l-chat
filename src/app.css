@@ -22,10 +22,16 @@ html {
 
 @layer components {
   .icon-button {
-    @apply p-2;
+    -webkit-tap-highlight-color: transparent;
+    @apply flex items-center justify-center w-10 h-10 p-2 -m-2 text-2xl
+    transition-[background-color,transform] rounded-full;
   }
 
   .icon-button:hover {
-    @apply text-red-500;
+    @apply bg-neutral-100/10;
+  }
+
+  .icon-button:active {
+    @apply bg-neutral-100/20;
   }
 }

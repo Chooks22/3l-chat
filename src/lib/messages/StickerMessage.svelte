@@ -5,7 +5,7 @@
 </script>
 
 <li
-  class="flex justify-between px-4 py-2"
+  class="flex justify-between px-4 py-2 my-1"
   style:background-color={chat.data.styles.background}
 >
   <div class="flex gap-4">

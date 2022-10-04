@@ -6,7 +6,7 @@
   export let chat: PaidChat;
 </script>
 
-<li class="flex flex-col w-full my-2 overflow-hidden rounded-sm shrink-0">
+<li class="shrink-0 flex flex-col w-full my-1 overflow-hidden rounded-sm">
   <div
     class="flex gap-4 px-4 py-2 font-bold"
     style:background-color={chat.data.styles.header.background}

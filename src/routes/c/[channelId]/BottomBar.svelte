@@ -8,11 +8,13 @@
 </script>
 
 <AppBar>
-  <AppBarItem active={$page === 0} icon="chat" href="#">All Chat</AppBarItem>
-  <AppBarItem active={$page === 1} icon="3p" href="#members">
+  <AppBarItem replaceState active={$page === 0} icon="chat" href="#">
+    All Chat
+  </AppBarItem>
+  <AppBarItem replaceState active={$page === 1} icon="3p" href="#members">
     Members
   </AppBarItem>
-  <AppBarItem active={$page === 2} icon="reviews" href="#supers">
+  <AppBarItem replaceState active={$page === 2} icon="reviews" href="#supers">
     Super Chats
   </AppBarItem>
 </AppBar>

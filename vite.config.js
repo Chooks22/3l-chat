@@ -5,8 +5,11 @@ import mkcert from 'vite-plugin-mkcert'
 const config = {
   plugins: [
     sveltekit(),
-    mkcert(),
   ],
+}
+
+if (process.argv.includes('--https')) {
+  config.plugins.push(mkcert())
 }
 
 export default config

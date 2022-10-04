@@ -4,15 +4,15 @@
   import PaidMessage from "$lib/messages/PaidMessage.svelte";
   import StickerMessage from "$lib/messages/StickerMessage.svelte";
   import { getContext } from "svelte";
-  import type { Readable } from "svelte/store";
   import { SwiperSlide } from "swiper/svelte";
+  import type { Stream } from "./start-chat.js";
 
-  const chats = getContext<Readable<Chat[]>>("chats");
+  const { paids } = getContext<Stream>("stream");
 </script>
 
 <SwiperSlide data-hash="supers">
   <MessageList title="Super Chats">
-    {#each $chats as chat (chat.id)}
+    {#each $paids as chat (chat.id)}
       {#if chat.type === "paid"}
         <PaidMessage {chat} />
       {:else if chat.type === "member"}
